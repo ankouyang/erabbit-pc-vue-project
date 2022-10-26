@@ -6,7 +6,7 @@ export default {
   mutations: {
     // 改变数据
     UPDATE_NAME (state, pload) {
-      state.userName = pload1
+      state.userName = pload
     }
   },
   actions: {
