@@ -16,7 +16,7 @@ export default {
     const store = useStore()
     console.log(store.state.userInfo.userName)
     console.log(store.getters.getUserName)
-    // 可直接调用，无需区分模块
+    // 可直接调用，无需区分模块    
     store.commit('UPDATE_NAME', '2323')
     store.dispatch('updateName')
 
