@@ -1,11 +1,13 @@
 <template>
-    <!-- 一级路由 -->
-   <RouterView />
+  登陆
 </template>
 
 <script>
 export default {
-  name: 'App'
 
 }
 </script>
+
+<style>
+
+</style>

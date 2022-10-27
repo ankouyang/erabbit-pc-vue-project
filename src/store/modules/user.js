@@ -5,7 +5,7 @@ export default {
   state () {
     return {
       // 用户信息
-      profie: {
+      profile: {
         id: '',
         avatar: '',
         nickname: '',

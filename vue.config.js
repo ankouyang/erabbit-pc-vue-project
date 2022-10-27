@@ -11,22 +11,27 @@ module.exports = {
       .set('@utils', path.join(__dirname, './src/utils'))
       .set('@views', path.join(__dirname, './src/views'))
   },
+  // css配置
+  css: {
+    // css预设器配置项
+    loaderOptions: {
+      scss: {
+        // 共享全局变量,把变量和混入加载进去
+        prependData: `
+        @import "@/assets/styles/variables.scss";
+        @import "@/assets/styles/mixins.scss";
+        `
+      }
+    }
+  },
   devServer: {
     port: 8888,
     open: true,
     proxy: {
-      '/admin': {
-        target: 'https://dev-gateway.xinshuiguanjia.com',
-        // target: 'http://test4-admin.xinshuiguanjia.com',
-        changeOrigin: true
-      },
-      '/accounts-admin': {
-        // target: 'https://dev2-xzb.xinshuiguanjia.com',
-        target: 'http://192.168.11.124:8201', // 震霖
-        // target: 'http://test4-admin.xinshuiguanjia.com',
-        changeOrigin: true,
+      '/api': {
+        target: 'http://pcapi-xiaotuxian-front-devtest.itheima.net/',
         pathRewrite: {
-          '^/accounts-admin': ''
+          '^/api': ''
         }
       }
     }

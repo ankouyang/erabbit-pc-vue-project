@@ -20,7 +20,9 @@ instance.interceptors.request.use(config => {
   // 进行请求配置的修改
   // 如果本地又token就在头部携带
   // 1. 获取用户信息对象
+  // console.log(store.state.user)
   const { profile } = store.state.user
+  // console.log(profile.token)
   // 2. 判断是否有token
   if (profile.token) {
     // 3. 设置token
@@ -45,6 +47,10 @@ instance.interceptors.response.use(res => res.data, err => {
     const fullPath = encodeURIComponent(router.currentRoute.value.fullPath)
     // encodeURIComponent 转换uri编码，防止解析地址出问题
     router.push('/login?redirectUrl=' + fullPath)
+  } else if (err.response && err.response.status === 404) {
+    const { data } = err.response
+    console.log(err.response)
+    alert(`请求路径${data.path}404不存在哦`)
   } else {
     //  离线状态
     if (!navigator.onLine) {
@@ -70,6 +76,6 @@ export default (url, method, submitData) => {
     // [] 设置一个动态的key, 写js表达式，js表达式的执行结果当作KEY
     // method参数：get,Get,GET  转换成小写再来判断
     // 在对象，['params']:submitData ===== params:submitData 这样理解
-    [method.toLowerCase() === 'get' ? 'params' : 'data']: submitData
+    [method === 'get' ? 'params' : 'data']: submitData
   })
 }
