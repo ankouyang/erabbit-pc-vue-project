@@ -7,9 +7,12 @@ import store from './store'
 import 'normalize.css'
 // 全局公用样式
 import '@/assets/styles/global.scss'
+// 自己UI插件
+import UI from '@/components/library/index'
 
 //  插件用使用use
 createApp(App)
   .use(store)
   .use(router)
+  .use(UI)
   .mount('#app')
