@@ -1,5 +1,5 @@
 <template>
-    <div class='xtx-carousel'>
+    <div class='xtx-carousel' @mouseenter="stop" @mouseleave="start">
       <!-- 图片容器 -->
       <ul class="carousel-body">
         <!-- fade 控制图片显示隐藏 -->
@@ -10,9 +10,9 @@
         </li>
       </ul>
       <!-- 上一张 -->
-      <a href="javascript:;" class="carousel-btn prev"><i class="iconfont icon-angle-left"></i></a>
+      <a href="javascript:;" class="carousel-btn prev" @click="prev"><i class="iconfont icon-angle-left"></i></a>
       <!-- 下一张 -->
-      <a href="javascript:;" class="carousel-btn next"><i class="iconfont icon-angle-right"></i></a>
+      <a href="javascript:;" class="carousel-btn next" @click="next"><i class="iconfont icon-angle-right"></i></a>
       <!-- 指示器 -->
       {{index}}
       <div class="carousel-indicator">
@@ -81,11 +81,31 @@ export default {
         autoPlayFn()
       }
     }, { immediate: true })
-
+    // 下一张
+    const next = () => {
+      index.value++
+      // 如果是到最后一行数据的时候，默认回到第一页
+      console.log(index.value)
+      if (index.value >= props.sliders.length) {
+        index.value = 0
+      }
+    }
+    //  上一张
+    const prev = () => {
+      index.value--
+      // 如果是到最开始的数据的时候，默认回到最后一页
+      console.log(index.value)
+      if (index.value < 0) {
+        index.value = props.sliders.length - 1
+      }
+    }
     return {
       index,
       stop,
-      start
+      start,
+      next,
+      prev
+
     }
   }
 }
