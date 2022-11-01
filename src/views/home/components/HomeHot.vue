@@ -1,6 +1,6 @@
 <template>
     <HomePanel title="人气推荐" sub-title="人气爆款 不容错过">
-        <div  style="position: relative;height: 406px;">
+        <div ref="target" style="position: relative;height: 406px;">
             <Transition name="fade">
               <ul ref="pannel" class="goods-list" v-if="goods.length">
                 <li v-for="item in goods" :key="item.id">
@@ -22,15 +22,17 @@ import { ref } from 'vue'
 import HomePanel from './HomePanel'
 import HomeSkeleton from './HomeSkeleton'
 import { findHot } from '@/api/home'
+import { useLayData } from '@/hooks/index'
 export default {
   name: 'HomeNew',
   components: { HomePanel, HomeSkeleton },
   setup () {
-    const goods = ref([])
-    findHot().then(data => {
-      goods.value = data.result
-    })
-    return { goods }
+    // 通过ref属性来获取DOM对象
+    const target = ref(null)
+    //  懒加载素具
+    const result = useLayData(target, findHot)// 懒加载数据
+
+    return { goods: result, target }
   }
 }
 </script>
