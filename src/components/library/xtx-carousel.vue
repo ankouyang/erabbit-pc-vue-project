@@ -4,7 +4,7 @@
       <ul class="carousel-body">
         <!-- fade 控制图片显示隐藏 -->
         <li class="carousel-item"  :class="{fade:index===i}" v-for="(item,i) in sliders" :key="i">
-          <RouterLink to="/">
+          <RouterLink :to="item.hrefUrl">
             <img :src="item.imgUrl" alt="">
           </RouterLink>
         </li>
@@ -14,7 +14,6 @@
       <!-- 下一张 -->
       <a href="javascript:;" class="carousel-btn next" @click="next"><i class="iconfont icon-angle-right"></i></a>
       <!-- 指示器 -->
-      {{index}}
       <div class="carousel-indicator">
         <span v-for="(item,i) in sliders.length" :key="i" :class="{active:index === i}"></span>
       </div>
