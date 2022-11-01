@@ -47,7 +47,6 @@ export default {
       timer = setInterval(() => {
         index.value++
         // 如果是到最后一行数据的时候，默认回到第一页
-        console.log(index.value)
         if (index.value >= props.sliders.length) {
           index.value = 0
         }

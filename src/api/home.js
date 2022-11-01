@@ -11,3 +11,6 @@ export const findNew = () => request('home/new', 'get')
 
 // 人气推荐接口
 export const findHot = () => request('home/hot', 'get')
+
+// 获取商品模板
+export const findProduct = () => request('home/goods', 'get')

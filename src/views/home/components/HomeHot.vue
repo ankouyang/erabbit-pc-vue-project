@@ -18,21 +18,18 @@
   </template>
 
 <script>
-import { ref } from 'vue'
 import HomePanel from './HomePanel'
 import HomeSkeleton from './HomeSkeleton'
 import { findHot } from '@/api/home'
-import { useLayData } from '@/hooks/index'
+import { useLazyData } from '@/hooks/index'
 export default {
   name: 'HomeNew',
   components: { HomePanel, HomeSkeleton },
   setup () {
-    // 通过ref属性来获取DOM对象
-    const target = ref(null)
-    //  懒加载素具
-    const result = useLayData(target, findHot)// 懒加载数据
+    //  懒加载数据
+    const { resultData, target } = useLazyData(findHot)// 懒加载数据
 
-    return { goods: result, target }
+    return { goods: resultData, target }
   }
 }
 </script>

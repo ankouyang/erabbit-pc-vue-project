@@ -10,8 +10,9 @@ import { ref } from 'vue'
  * @param { Function } apiFn -API函数
  */
 
-export const useLayData = (target, apiFn) => {
+export const useLazyData = (apiFn) => {
   const resultData = ref([])
+  const target = ref(null)// 直接在里面定义 ref响应式数据
   // stop停止观察的函数
   const { stop } = useIntersectionObserver(
     target,
@@ -26,5 +27,5 @@ export const useLayData = (target, apiFn) => {
       }
     }
   )
-  return resultData
+  return { resultData, target } // target导出  无需再每个使用的地方都进行target定义
 }
