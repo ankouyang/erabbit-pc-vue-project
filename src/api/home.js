@@ -7,10 +7,13 @@ export const findBrand = (limit = 6) => request('/home/brand', 'get', { limit })
 export const findBanner = () => request('/home/banner', 'get')
 
 // 新鲜好物接口
-export const findNew = () => request('home/new', 'get')
+export const findNew = () => request('/home/new', 'get')
 
 // 人气推荐接口
-export const findHot = () => request('home/hot', 'get')
+export const findHot = () => request('/home/hot', 'get')
 
 // 获取商品模板
-export const findProduct = () => request('home/goods', 'get')
+export const findProduct = () => request('/home/goods', 'get')
+
+// 获取最新专题
+export const findSpecial = () => request('/home/special', 'get')

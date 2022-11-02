@@ -1,6 +1,9 @@
 <template>
     <div class="home-product" ref="target">
-      <HomePanel :title="cate.name" v-for="cate in  resultData" :key="cate.id">
+      <div style="position: relative">
+        <Transition name="fade">
+          <div v-if="resultData.length">
+        <HomePanel :title="cate.name" v-for="cate in  resultData" :key="cate.id">
         <template #right>
           <div class="sub">
             <RouterLink :to="`/category/sub/${sub.id}`" v-for="sub in cate.children" :key="sub.id">{{sub.name}}</RouterLink>
@@ -22,6 +25,14 @@
           </ul>
         </div>
       </HomePanel>
+      </div>
+      <div v-else>
+        <HomePanel v-for="i in  4" :key="i">
+          <HomeSkeletonGoods />
+        </HomePanel>
+      </div>
+        </Transition>
+      </div>
     </div>
   </template>
 
@@ -31,9 +42,10 @@ import HomeGoods from './HomeGoods'
 import { findProduct } from '@/api/home'
 // import { ref } from 'vue'
 import { useLazyData } from '@/hooks/index'
+import HomeSkeletonGoods from './HomeSkeletonGoods.vue'
 export default {
   name: 'HomeProduct',
-  components: { HomePanel, HomeGoods },
+  components: { HomePanel, HomeGoods, HomeSkeletonGoods },
   setup () {
     // productList
     // const productList = ref([])
@@ -60,7 +72,6 @@ export default {
         &:hover {
           background: $xtxColor;
           color: #fff;
-          object-fit: cover;
         }
         &:last-child {
           margin-right: 80px;
@@ -77,6 +88,7 @@ export default {
         img {
           width: 100%;
           height: 100%;
+          object-fit: cover;
         }
         .label {
           width: 188px;

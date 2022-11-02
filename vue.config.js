@@ -29,7 +29,7 @@ module.exports = {
     open: true,
     proxy: {
       '/api': {
-        target: 'http://pcapi-xiaotuxian-front-devtest.itheima.net/',
+        target: 'http://pcapi-xiaotuxian-front-devtest.itheima.net',
         pathRewrite: {
           '^/api': ''
         }

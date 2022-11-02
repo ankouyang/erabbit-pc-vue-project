@@ -5,7 +5,7 @@
         <!-- fade 控制图片显示隐藏 -->
         <li class="carousel-item"  :class="{fade:index===i}" v-for="(item,i) in sliders" :key="i">
           <RouterLink :to="item.hrefUrl">
-            <img :src="item.imgUrl" alt="">
+            <img v-lazyload="item.imgUrl" alt="">
           </RouterLink>
         </li>
       </ul>

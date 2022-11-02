@@ -8,6 +8,9 @@ import XtxCarousel from './xtx-carousel.vue'
 import XtxMore from './xtx-more.vue'
 // 存储所有需要注册的组件
 
+// 自定义指令
+import { imgDirective } from '@/directive/index'
+
 const components = [XtxSkeleton, XtxCarousel, XtxMore]
 export default {
   install (app) {
@@ -16,5 +19,6 @@ export default {
     // 全局组件
     components.map(item => app.component(item.name, item)) // 组件里面一定要加上name
     //  以后全局组件,自定义指令在此添加
+    imgDirective(app)
   }
 }

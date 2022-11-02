@@ -25,6 +25,10 @@ export const useLazyData = (apiFn) => {
           resultData.value = result
         })
       }
+    },
+    //  配置选项，threshold 容器和可视区交叉的占比（进入的面积/容器完整面积:阀值） 取值，0-1 之间，默认比0大，所以需要滚动较多才能触发进入可视区域事件。这里设置为 0 相交就触发
+    {
+      threshold: 0
     }
   )
   return { resultData, target } // target导出  无需再每个使用的地方都进行target定义
