@@ -40,7 +40,10 @@ const routes = [
 //  vue 3.0 createRouter({}) 创建路由实例
 const router = createRouter({
   history: createWebHashHistory(),
-  routes
+  routes,
+  scrollBehavior () {
+    return { left: 0, top: 0 }
+  }
 })
 
 export default router
