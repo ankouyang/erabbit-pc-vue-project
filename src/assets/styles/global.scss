@@ -118,17 +118,19 @@
     }
   }
 
-.fade-right-enter-to,
-.fade-right-leave-from{
-  opacity: 1;
-  transform: none;
-}
-.fade-right-enter-active,
-.fade-right-leave-active{
-  transition: all .5s;
-}
-.fade-right-enter-from,
-.fade-right-leave-to{
-  opacity: 0;
-  transform: translate3d(20px,0,0);
-}
+   //Transition 从右侧进入的动画 
+   // 进入:右侧 20px的位移 透明度为0  做过渡0.5s   回到本来的位置 没有位移 透明度1
+   // 离开:右侧 回到本来的位置 没有位移 透明度1  右侧20px的位移 透明度为0
+   .fade-right{
+    &-enter-to,&-leave-from {
+      opacity: 1;
+      transform: none;
+    }
+    &-enter-active,&-leave-active {
+      transition: all .5s;
+    }
+    &-enter-from,&-leave-to{
+      opacity: 0;
+      transform: translate3d(20px,0,0);
+    }
+   }

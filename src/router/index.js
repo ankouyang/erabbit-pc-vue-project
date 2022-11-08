@@ -42,6 +42,7 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes,
   scrollBehavior () {
+    // 每次都滚动到页面的顶部  vue2.0 是{x：number,y:number} vue3.0 是{lett:number,top:number}
     return { left: 0, top: 0 }
   }
 })

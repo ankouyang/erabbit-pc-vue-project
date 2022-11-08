@@ -72,7 +72,7 @@ export default {
     }
     // 监听具体的对象的属性，用函数，并返回对象
     watch(() => route.params.id, (newVal) => {
-      // 切换到二级类目路由的时候也有ID，但是也触发了watch导致发送了请求，需要处理，所以这里需要当前路由要严格匹配和一级相同。
+      // 切换到二级类目路由的时候也有ID，但是也触发了watch导致发送了请求，需要处理，所以这里需要当前路由要严格匹配和一级类目相同。
       (newVal && `/category/${newVal}` === route.path) && getSubList()
     }, { immediate: true })
 

@@ -8,3 +8,9 @@ export const findAllCategory = () => request('/home/category/head', 'get')
  * @param {String} id - 顶级分类ID
  */
 export const findTopCategory = (id) => request('/category', 'get', { id })
+
+/**
+ * 获取筛选条件-PC
+ * @param {String}
+ */
+export const findSubCategoryFilter = (id) => request('/category/sub/filter', 'get', { id })

@@ -1,17 +1,68 @@
 <template>
-   <div class="sub-filter">
-     <div class="item" v-for="i in 4" :key="i">
+   <div class="sub-filter" v-if="filterList&&!filterLoading">
+     <div class="item">
        <div class="head">品牌：</div>
-       <div class="body">
-         <a href="javascript:;">全部</a>
-         <a href="javascript:;" v-for="i in 4" :key="i">小米</a>
+       <div class="body" v-if="filterList.brands">
+         <a href="javascript:;"  :class="{active:item.id === filterList.selectedBrand }" v-for="item in filterList.brands" :key="item.id">{{item.name}}</a>
        </div>
      </div>
+     <div v-if="filterList.saleProperties">
+       <div class="item" v-for="item in filterList.saleProperties" :key="item.id">
+       <div class="head">{{item.name}}：</div>
+       <div class="body" v-if="item.properties">
+         <a href="javascript:;" :class="{active:sale.id === item.selectedProperty }"  v-for="sale in item.properties" :key="sale.id">{{sale.name}}</a>
+       </div>
+     </div>
+     </div>
    </div>
+   <div v-else class="sub-filter">
+    <XtxSkeleton class="item" width="800px" height="40px"  />
+    <XtxSkeleton class="item" width="800px" height="40px"  />
+    <XtxSkeleton class="item" width="600px" height="40px"  />
+    <XtxSkeleton class="item" width="600px" height="40px"  />
+    <XtxSkeleton class="item" width="600px" height="40px"  />
+  </div>
 </template>
 <script>
+import { findSubCategoryFilter } from '@/api/category'
+import { ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 export default {
-  name: 'SubFilter'
+  name: 'SubFilter',
+  setup () {
+    const route = useRoute()
+    const filterList = ref(null)
+    const filterLoading = ref(false)
+    // 获取二级类目-筛选条件-PC
+    const getSubCategoryFilter = () => {
+      filterLoading.value = true
+      findSubCategoryFilter(route.params.id).then(({ result }) => {
+        if (result) {
+        // 添加品牌添加全部
+          result.brands && result.brands.unshift({ id: null, name: '全部' })
+          result.selectedBrand = null// 默认是全部
+          result.saleProperties && result.saleProperties.forEach(item => {
+            item.selectedProperty = null
+            item.properties.unshift({ id: null, name: '全部' })
+          })
+        }
+        filterList.value = result || []
+        filterLoading.value = false
+      })
+    }
+
+    // watch params-id
+    watch(() => route.params.id, (newVal) => {
+      // 判断当前路由是不是严格个二级路径匹配，才获取二级类目-筛选条件
+      (newVal && `/category/sub/${newVal}` === route.path) && getSubCategoryFilter()
+    }, {
+      immediate: true
+    })
+    return {
+      filterList,
+      filterLoading
+    }
+  }
 }
 </script>
 <style scoped lang='scss'>
@@ -38,6 +89,9 @@ export default {
           }
         }
       }
+    }
+    .xtx-skeleton {
+      padding: 10px 0;
     }
   }
 </style>
