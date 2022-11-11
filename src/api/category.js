@@ -14,3 +14,9 @@ export const findTopCategory = (id) => request('/category', 'get', { id })
  * @param {String}
  */
 export const findSubCategoryFilter = (id) => request('/category/sub/filter', 'get', { id })
+
+/**
+ * 获取分类下的商品（带筛选条件）
+ * @param {Object} params - 可参考接口文档
+ */
+export const findSubCategoryGoods = (params) => request('/category/goods/temporary', 'post', params)
