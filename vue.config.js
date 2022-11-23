@@ -10,6 +10,12 @@ module.exports = {
       .set('@components', path.join(__dirname, './src/components'))
       .set('@utils', path.join(__dirname, './src/utils'))
       .set('@views', path.join(__dirname, './src/views'))
+    // 需要配置10kb下的图片打包成base64的格式
+    config.module
+      .rule('images')
+      .use('url-loader')
+      .loader('url-loader')
+      .tap(options => Object.assign(options, { limit: 10000 }))
   },
   // css配置
   css: {

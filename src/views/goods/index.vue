@@ -14,9 +14,12 @@
         <!-- 图片放大镜左边 -->
         <div class="media">
           <GoodsImage  :images="goods.mainPictures"/>
+          <GoodsSales />
         </div>
         <!-- 相关商品 sku spu相关参数 选购 -->
-        <div class="spec"></div>
+        <div class="spec">
+          <GoodsName :goods="goods" />
+        </div>
       </div>
       <!-- 商品推荐 -->
       <GoodsRelevant/>
@@ -24,7 +27,9 @@
       <div class="goods-footer">
         <div class="goods-article">
           <!-- 商品+评价 -->
-          <div class="goods-tabs"></div>
+          <div class="goods-tabs">
+            <GoodsSales />
+          </div>
           <!-- 注意事项 -->
           <div class="goods-warn"></div>
         </div>
@@ -38,6 +43,8 @@
 <script>
 import GoodsRelevant from './components/goods-relevant'
 import GoodsImage from './components/goods-image.vue'
+import GoodsSales from './components/goods-sales.vue'
+import GoodsName from './components/goods-name.vue'
 import { findGoods } from '@/api/product'
 import { ref, watch, nextTick } from 'vue'
 import { useRoute } from 'vue-router'
@@ -64,7 +71,7 @@ const useGoods = () => {
 
 export default {
   name: 'XtxGoodsPage',
-  components: { GoodsRelevant, GoodsImage },
+  components: { GoodsRelevant, GoodsImage, GoodsSales, GoodsName },
   // 为了防止setup里面写入大量的代码，可以将一些方法写在script 内
   setup () {
     // 1. 获取商品详情,
