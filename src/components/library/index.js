@@ -26,7 +26,6 @@ export default {
     importFn.keys().forEach(key => {
       // 导入组件
       const component = importFn(key).default
-      console.log(component)
       app.component(component.name, component)
     }) // 组件里面一定要加上name
     //  以后全局组件,自定义指令在此添加

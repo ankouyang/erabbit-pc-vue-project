@@ -18,7 +18,10 @@
         </div>
         <!-- 相关商品 sku spu相关参数 选购 -->
         <div class="spec">
+          <!--选择地址区域-->
           <GoodsName :goods="goods" />
+          <!-- sku组件 -->
+          <GoodsSku  :goods="goods" />
         </div>
       </div>
       <!-- 商品推荐 -->
@@ -41,10 +44,11 @@
 </template>
 
 <script>
-import GoodsRelevant from './components/goods-relevant'
-import GoodsImage from './components/goods-image.vue'
-import GoodsSales from './components/goods-sales.vue'
-import GoodsName from './components/goods-name.vue'
+import GoodsRelevant from './components/GoodsRelevant'
+import GoodsImage from './components/GoodsImage'
+import GoodsSales from './components/GoodsSales'
+import GoodsName from './components/GoodsName'
+import GoodsSku from './components/GoodsSku'
 import { findGoods } from '@/api/product'
 import { ref, watch, nextTick } from 'vue'
 import { useRoute } from 'vue-router'
@@ -71,7 +75,13 @@ const useGoods = () => {
 
 export default {
   name: 'XtxGoodsPage',
-  components: { GoodsRelevant, GoodsImage, GoodsSales, GoodsName },
+  components: {
+    GoodsRelevant,
+    GoodsImage,
+    GoodsSales,
+    GoodsName,
+    GoodsSku
+  },
   // 为了防止setup里面写入大量的代码，可以将一些方法写在script 内
   setup () {
     // 1. 获取商品详情,

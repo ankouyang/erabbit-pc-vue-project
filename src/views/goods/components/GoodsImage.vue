@@ -40,7 +40,6 @@ const usePreviewImg = () => {
     // 5.根据得到的数据设置样式 数据和是否显示数据。因为遮罩的宽度为200.中图的宽度为400，所以移动的范围只能是0-200
     // 在容器内才显示
     showBigImage.value = !arr[2]
-    console.log(elementX.value)
     // 控制X轴方向的定位 0-200 之间
     // layer的宽度为200，当鼠标横向坐标小于layer宽度的一半的时候，遮罩不移动，Y轴同理
     if (elementX.value < 100) position.left = 0
