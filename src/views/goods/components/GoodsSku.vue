@@ -60,8 +60,6 @@ const updateDisabledStatus = (specs, pathMap) => {
   specs.forEach((spec, i) => {
     // 要在每个规格中都要去获取一遍最新的，所以需要放在这个循环里面
     const selectedArr = getSelectedArr(specs)
-    console.log(selectedArr)
-    console.log('测试')
     spec.values.forEach(val => {
       // 已经选中的按钮不用判断
       if (val.selected) return false
@@ -71,10 +69,6 @@ const updateDisabledStatus = (specs, pathMap) => {
       const key = selectedArr.filter(v => v).join(spliter)
       // val.name 在pathMap 中key 是一直的，如果pathMap[val.name]存在,说明在路径字典中存在,反之没有
       val.disabled = !pathMap[key]
-      console.log(selectedArr)
-      console.log(key)
-      console.log(pathMap[key])
-      console.log('=======')
     })
     // console.log(selectedArr)
   })
@@ -105,7 +99,7 @@ export default {
       default: ''
     }
   },
-  setup (props) {
+  setup (props, { emit }) {
     const pathMap = getPathMap(props.goods.skus)
     // 组件初始化:更新按钮禁用状态
     updateDisabledStatus(props.goods.specs, pathMap)
@@ -127,6 +121,30 @@ export default {
       }
       //  选择规格的时候,也得更新按钮禁用状态
       updateDisabledStatus(props.goods.specs, pathMap)
+
+      // 将选择的sku信息通知父组件{skuId,price,oldPrice,inventory,specsText}
+      // 1.选择完整的sku组合按钮,才可以拿到这些信息,提交组件
+      // 2.不是完整的sku组合按钮,提交空对象
+      const validSelectValues = getSelectedArr(props.goods.specs).filter(v => v)
+      console.log(pathMap)
+      // 完整的sku组合按钮
+      if (validSelectValues.length === props.goods.specs.length) {
+        // 找到sku按钮所对应的skuIds
+        console.log('完整')
+        const skuIds = pathMap[validSelectValues.join(spliter)]
+        const sku = props.goods.skus.find(sku => sku.id === skuIds[0])
+        emit('change', {
+          skuId: sku.id,
+          price: sku.price,
+          oldPrice: sku.oldPrice,
+          inventory: sku.inventory,
+          // 属性名: 属性值   属性名1：属性值1 ... 这样的字符串
+          specsText: sku.specs.reduce((p, n) => `${p} ${n.name}：${n.valueName}`, '').replace(' ', '')
+        })
+      } else {
+        // 父组件需要判断是否规格选择完整,不完整不能加购物车
+        emit('change', {})
+      }
     }
 
     return { selectSku }

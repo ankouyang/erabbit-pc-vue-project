@@ -21,7 +21,8 @@
           <!--选择地址区域-->
           <GoodsName :goods="goods" />
           <!-- sku组件 -->
-          <GoodsSku  :goods="goods" skuId="300355116" />
+          <!-- <GoodsSku  :goods="goods" skuId="1563026" /> -->
+          <GoodsSku  :goods="goods" @change="getSkuInfo"/>
         </div>
       </div>
       <!-- 商品推荐 -->
@@ -86,7 +87,18 @@ export default {
   setup () {
     // 1. 获取商品详情,
     const goods = useGoods()
-    return { goods }
+
+    const getSkuInfo = (sku) => {
+      console.log(sku)
+      // 修改山品的现价和原价库存信息
+      if (sku.skuId) {
+        goods.value.price = sku.price
+        goods.value.oldPrice = sku.oldPrice
+        goods.value.inventory = sku.inventory
+      }
+    }
+
+    return { goods, getSkuInfo }
   }
 }
 
