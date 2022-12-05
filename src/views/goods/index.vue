@@ -21,7 +21,7 @@
           <!--选择地址区域-->
           <GoodsName :goods="goods" />
           <!-- sku组件 -->
-          <GoodsSku  :goods="goods" />
+          <GoodsSku  :goods="goods" skuId="300355116" />
         </div>
       </div>
       <!-- 商品推荐 -->

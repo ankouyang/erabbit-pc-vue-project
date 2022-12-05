@@ -80,20 +80,36 @@ const updateDisabledStatus = (specs, pathMap) => {
   })
 }
 
+// 默认选中
+const initDefaultSelected = (goods, skuId) => {
+  // 1.找出sku的信息
+  // 2.遍历每一个按钮
+  const sku = goods.skus.find(sku => sku.id === skuId)
+  goods.specs.forEach((item, i) => {
+    // 匹配与选中sku的按钮信息，然后选中即可
+    const val = item.values.find(val => val.name === sku.specs[i].valueName)
+    val.selected = true
+  })
+}
+
 export default {
   name: 'GoodsSku',
   props: {
     goods: {
       type: Object,
       default: () => {}
+    },
+    skuId: {
+      type: String,
+      default: ''
     }
   },
   setup (props) {
     const pathMap = getPathMap(props.goods.skus)
-    console.log(pathMap)
     // 组件初始化:更新按钮禁用状态
     updateDisabledStatus(props.goods.specs, pathMap)
-
+    // 默认选中
+    initDefaultSelected(props.goods, props.skuId)
     // 1. 选中与取消选中逻辑
     // 1.1 点击的是已选中,只需要取消当前的选中
     // 1.2 点击的是未选中, 将已选中的规格按钮改成为未选中,当前点击的改成选中
@@ -108,7 +124,6 @@ export default {
         arr && arr.forEach(item => { item.selected = false })
         val.selected = true
       }
-
       //  选择规格的时候,也得更新按钮禁用状态
       updateDisabledStatus(props.goods.specs, pathMap)
     }
