@@ -23,6 +23,9 @@
           <!-- sku组件 -->
           <!-- <GoodsSku  :goods="goods" skuId="1563026" /> -->
           <GoodsSku  :goods="goods" @change="getSkuInfo"/>
+           <!-- 数量选择组件 -->
+           <XtxNumbox label="数量" v-model="num" :max="goods.inventory"/>
+
         </div>
       </div>
       <!-- 商品推荐 -->
