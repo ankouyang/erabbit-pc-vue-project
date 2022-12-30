@@ -24,7 +24,7 @@
           <!-- <GoodsSku  :goods="goods" skuId="1563026" /> -->
           <GoodsSku  :goods="goods" @change="getSkuInfo"/>
            <!-- 数量选择组件 -->
-           <XtxNumbox label="数量" v-model="num" :max="goods.inventory"/>
+           <XtxNumbox label="数量" v-model="count" :max="goods.inventory"/>
 
         </div>
       </div>
@@ -100,8 +100,9 @@ export default {
         goods.value.inventory = sku.inventory
       }
     }
+    const count = ref(1)
 
-    return { goods, getSkuInfo }
+    return { goods, getSkuInfo, count }
   }
 }
 

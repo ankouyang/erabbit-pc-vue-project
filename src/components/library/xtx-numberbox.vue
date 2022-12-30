@@ -3,15 +3,46 @@
     <div class="xtx-numbox">
       <div class="label">数量</div>
       <div class="numbox">
-        <a href="javascript:;">-</a>
-        <input type="text" readonly value="1">
-        <a href="javascript:;">+</a>
+        <a href="javascript:;" @click="changeNum(-1)">-</a>
+        <input type="text" readonly :value="count">
+        <a href="javascript:;" @click="changeNum(1)">+</a>
       </div>
     </div>
   </template>
 <script>
+import { useVModel } from '@vueuse/core'
 export default {
-  name: 'XtxNumbox'
+  name: 'XtxNumbox',
+  props: {
+    modelValue: {
+      type: Number,
+      default: 1
+    },
+    min: {
+      type: Number,
+      default: 1
+    },
+    max: {
+      type: Number,
+      default: 100
+    }
+  },
+  setup (props, { emit }) {
+    // 1. 绑定按钮点击时间  -按钮 +按钮  触发同一个事件,同一个函数
+    // 2. 使用vueuse的useVModel做数据双向绑定
+    const count = useVModel(props, 'modelValue', emit)
+    const changeNum = (step) => {
+      const newValue = count.value + step
+      if (newValue < props.min) return
+      if (newValue > props.max) return
+      count.value = newValue
+      emit('change', newValue)
+    }
+    return {
+      count,
+      changeNum
+    }
+  }
 }
 </script>
   <style scoped lang="scss">
