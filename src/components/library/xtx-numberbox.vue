@@ -1,10 +1,10 @@
 
 <template>
     <div class="xtx-numbox">
-      <div class="label">数量</div>
+      <div class="label" v-if="label">{{ label }}</div>
       <div class="numbox">
         <a href="javascript:;" @click="changeNum(-1)">-</a>
-        <input type="text" readonly :value="count">
+        <input type="text" readonly :value="modelValue">
         <a href="javascript:;" @click="changeNum(1)">+</a>
       </div>
     </div>
@@ -14,6 +14,10 @@ import { useVModel } from '@vueuse/core'
 export default {
   name: 'XtxNumbox',
   props: {
+    label: {
+      type: String,
+      default: ''
+    },
     modelValue: {
       type: Number,
       default: 1
@@ -39,7 +43,6 @@ export default {
       emit('change', newValue)
     }
     return {
-      count,
       changeNum
     }
   }

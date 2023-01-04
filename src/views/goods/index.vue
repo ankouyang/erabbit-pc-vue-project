@@ -23,8 +23,10 @@
           <!-- sku组件 -->
           <!-- <GoodsSku  :goods="goods" skuId="1563026" /> -->
           <GoodsSku  :goods="goods" @change="getSkuInfo"/>
-           <!-- 数量选择组件 -->
-           <XtxNumbox label="数量" v-model="count" :max="goods.inventory"/>
+          <!-- 数量选择组件 -->
+          <XtxNumbox label="数量" v-model="num" :max="goods.inventory"/>
+          <!-- 按钮组件 -->
+          <XtxButton type="primary" size="middle"  style="margin-top:20px;">加入购物车</XtxButton>
 
         </div>
       </div>
@@ -100,9 +102,9 @@ export default {
         goods.value.inventory = sku.inventory
       }
     }
-    const count = ref(1)
+    const num = ref(1)
 
-    return { goods, getSkuInfo, count }
+    return { goods, getSkuInfo, num }
   }
 }
 
