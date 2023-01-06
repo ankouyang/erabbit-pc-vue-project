@@ -8,3 +8,8 @@
       box-shadow: 0 3px 8px rgba(0,0,0,0.2);
     }
   }
+
+// Sass 中的函数 @function
+@function lighten ($color,$percenter) {
+    @return rgba($color,$percenter);
+}
