@@ -5,13 +5,41 @@
       <span class="title">同类商品推荐</span>
     </div>
     <!-- 此处使用改造后的xtx-carousel.vue -->
+    <XtxCarousel :sliders="sliders" style="height:380px" auto-play />
   </div>
 </template>
 
 <script>
+import { findRelevantGoods } from '@/api/product'
+import { ref } from 'vue'
+// 得到需要的数据
+const useRelGoodsData = (id) => {
+  const sliders = ref([])
+  findRelevantGoods(id).then(data => {
+    // 每页4条
+    const size = 4
+    // 注意这里需要向上取整
+    const total = Math.ceil(data.result.length / size)
+    for (let i = 0; i < total; i++) {
+      // 截取4个作为一个数据
+      sliders.value.push(data.result.slice(i * size, (i + 1) * size))
+    }
+  })
+  return sliders
+}
 export default {
   // 同类推荐，猜你喜欢
-  name: 'GoodsRelevant'
+  name: 'GoodsRelevant',
+  props: {
+    goodsId: {
+      type: String,
+      default: undefined
+    }
+  },
+  setup (props) {
+    const sliders = useRelGoodsData(props.goodsId)
+    return { sliders }
+  }
 }
 </script>
 
@@ -45,6 +73,28 @@ export default {
         left: 0;
         top: 2px;
         background: lighten($xtxColor, 0.4);
+      }
+    }
+  }
+}
+:deep(.xtx-carousel) {
+  height: 380px;
+  .carousel {
+    &-indicator {
+      bottom: 30px;
+      span {
+        &.active {
+          background: $xtxColor;
+        }
+      }
+    }
+    &-btn {
+      top: 110px;
+      opacity: 1;
+      background: rgba(0,0,0,0);
+      color: #ddd;
+      i {
+        font-size: 30px;
       }
     }
   }

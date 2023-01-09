@@ -30,8 +30,8 @@
 
         </div>
       </div>
-      <!-- 商品推荐 -->
-      <GoodsRelevant/>
+     <!-- 商品推荐 -->
+     <GoodsRelevant :goodsId="goods.id"/>
       <!-- 商品详情 -->
       <div class="goods-footer">
         <div class="goods-article">
@@ -78,7 +78,6 @@ const useGoods = () => {
   }, { immediate: true })
   return goods
 }
-
 export default {
   name: 'XtxGoodsPage',
   components: {
